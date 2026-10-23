@@ -1,0 +1,10 @@
+Design & Code: Nice work, the 5 pages look just like your design and the code is neat.
+Text Size: The text on some pages is really tiny. Make it a bit bigger so it's easy to read on a phone.
+Cart Count: Your cart says "3 items" but shows only 1 product. Fix the number.
+Consistency: The last page shows a Sony headphone at $299, but the rest of the app has BOAT at RS.2500. Make them match.
+Typos: There's a spelling mistake: "RETUREN" should be "RETURN".
+Dead Links: Buttons like "Remove", "View all" and the promo code don't do anything yet. Try making them work.
+Sorting: The sort dropdown on the product list doesn't sort. Make it work.
+Navigation Labels: The bottom menu is just grey shapes. Add names like Home and Cart so people know what they are.
+Image Paths: The images only show if the images folder is next to the file. Double-check the folder and file names.
+Code Comments: Add short comments in your code, like // go to the next page, so it's easy to understand later.
