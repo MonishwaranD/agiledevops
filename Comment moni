@@ -1,0 +1,10 @@
+Logo: The Amazon logo is bigger and bold.
+Spelling: "Noice cancellation, Musics." now reads "Noise cancellation, Music."
+Rating: The Boat 161 rating on the listing page was 4.6 (642) and is now 4.8 (1,248), matching Home and Details.
+Total price: The order screen showed 2999 while the cart showed 2998, so it now shows 2998 everywhere.
+Nav label: The Home screen's "Orders" tab now says "You", like the other screens.
+Search: The Home search box accepts typing, and pressing Enter opens the product list.
+Checkbox: The checkbox on the listing page can be ticked, and it no longer opens the product when tapped.
+Add to Cart: A short "Added to cart ✓" message appears before the cart opens.
+Hover and press: Buttons and cards react to hover and press.
+Screen transition: Screens fade in smoothly when you move between them.
