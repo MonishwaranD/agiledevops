@@ -1,0 +1,836 @@
+amazon-app-feedback.html
+ 
+FEEDBACK CHANGES APPLIED (search "FEEDBACK n" in the code)
+// 1. Logo made bigger and bold
+// 2. Spelling fixed: Noice -> Noise, Musics -> Music
+// 3. Listing rating made consistent: 4.8 (1,248)
+// 4. Order total fixed to 2998 to match cart
+// 5. Home nav label Orders -> You
+// 6. Home search box typeable, Enter opens listing
+// 7. Listing checkbox can be ticked
+// 8. Toast 'Added to cart' before opening cart
+// 9. Hover and press effect on buttons and cards
+// 10. Smooth fade between screens
+ 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amazon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --g: #1b4d3e;
+        --chip: #e8f0e6;
+        --olive: #a0a40a;
+        --purple: #a64fd0;
+        --muted: #666;
+        --line: #e5e5e5;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", system-ui, sans-serif;
+      }
+      body {
+        background: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .phone {
+        width: 100%;
+        max-width: 420px;
+        background: #fff;
+        position: relative;
+        min-height: 100vh;
+      }
+      .screen {
+        display: none;
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 80px;
+      }
+      /* FEEDBACK 10: Smooth fade animation when moving between screens */
+      .screen.active {
+        display: block;
+        animation: fade 0.3s ease;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .pad {
+        padding: 16px 18px;
+      }
+      .pad.flat {
+        padding: 0;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .between {
+        justify-content: space-between;
+      }
+      .mt {
+        margin-top: 22px;
+      }
+      .center {
+        display: block;
+        text-align: center;
+      }
+      small {
+        font-size: 12px;
+        color: #555;
+        display: block;
+      }
+      .muted {
+        color: #777;
+      }
+      .green {
+        color: var(--g);
+        font-weight: 500;
+      }
+      .link {
+        color: var(--g);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 12px 0;
+      }
+      /* FEEDBACK 1: Make the Amazon logo bigger and bold so the brand stands out */
+      .logo {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--g);
+      }
+      .icon {
+        font-size: 18px;
+      }
+      .h2 {
+        font-size: 20px;
+        font-weight: 400;
+        color: #222;
+        margin: 18px 0 12px;
+      }
+      .h2.light {
+        margin: 20px 0 10px;
+      }
+      .search {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 12px;
+        margin: 18px 0;
+        cursor: pointer;
+      }
+      .search input {
+        border: 0;
+        outline: 0;
+        font-size: 14px;
+        width: 100%;
+        background: none;
+        pointer-events: none;
+      }
+      .hero {
+        display: block;
+        width: 170px;
+        margin: 0 0 20px;
+      }
+      /* categories */
+      .cats {
+        display: flex;
+        justify-content: space-between;
+      }
+      .cat {
+        background: none;
+        border: 0;
+        font-size: 12px;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+      }
+      .cat span {
+        width: 54px;
+        height: 48px;
+        border-radius: 12px;
+        background: var(--chip);
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+      }
+      .cat.sel span {
+        background: #bdbdbd;
+      }
+      /* items */
+      .items {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 14px;
+      }
+      .item {
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .item b {
+        display: block;
+        font-weight: 500;
+      }
+      .item small {
+        margin: 4px 0;
+      }
+      .item strong {
+        display: block;
+        font-size: 15px;
+        margin-top: 10px;
+      }
+      .item img {
+        width: 100%;
+        max-width: 130px;
+        display: block;
+        margin-top: 6px;
+      }
+      .item img.side {
+        width: 70px;
+        margin: 0;
+      }
+      .item .row {
+        align-items: flex-start;
+      }
+      /* top bars */
+      .top {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+      .back {
+        font-size: 20px;
+        cursor: pointer;
+      }
+      /* listing */
+      .lcard {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        margin: 18px 0;
+        cursor: pointer;
+      }
+      .lcard img {
+        width: 72px;
+        height: 72px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .lcard b {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .lcard small {
+        margin: 10px 0 6px;
+      }
+      .lcard strong {
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .lcard.col {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+      }
+      .lcard.col img {
+        width: 110px;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0;
+      }
+      .lcard.col small {
+        margin: 0;
+      }
+      .check {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+      /* details */
+      .ptitle {
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 10px;
+        line-height: 1.25;
+      }
+      .pprice {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 8px 0;
+      }
+      .pimg {
+        display: block;
+        width: 150px;
+        margin: 16px 0 28px 30px;
+      }
+      .small {
+        font-size: 11px;
+        margin: 12px 0;
+      }
+      .good {
+        background: var(--purple);
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 12px;
+        margin: 12px 0;
+      }
+      .bottom {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        max-width: 420px;
+        background: #fbfbf3;
+        padding-top: 10px;
+      }
+      .bottom .btn {
+        width: calc(100% - 32px);
+        margin: 0 16px;
+      }
+      .btn {
+        display: block;
+        width: 100%;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 14px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .olive {
+        background: var(--olive);
+      }
+      /* FEEDBACK 9: Hover and press effect on buttons and cards */
+      .btn,
+      .lcard,
+      .item,
+      .cat {
+        transition: all 0.15s ease;
+      }
+      .btn:hover {
+        filter: brightness(1.12);
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .lcard:hover {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+      }
+      .item:hover {
+        opacity: 0.85;
+      }
+      /* FEEDBACK 6: Home search box must accept typing */
+      #homeSearch {
+        pointer-events: auto;
+      }
+      /* FEEDBACK 7: Checkbox shows a tick when selected */
+      .check {
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+        color: #fff;
+      }
+      .check.on {
+        background: var(--g);
+        border-color: var(--g);
+      }
+      /* FEEDBACK 8: Toast message after adding to cart */
+      .toast {
+        position: fixed;
+        bottom: 130px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--g);
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.25s ease;
+        z-index: 20;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .dark {
+        background: var(--g);
+        border-color: var(--g);
+      }
+      /* cart */
+      .ccard {
+        border: 1px solid #ccc;
+        border-radius: 14px;
+        padding: 14px;
+        margin: 16px 0;
+      }
+      .ccard img {
+        width: 150px;
+        display: block;
+        margin-bottom: 22px;
+      }
+      .ccard b {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .ccard small {
+        margin: 8px 0 4px;
+      }
+      .ccard strong {
+        display: block;
+        font-size: 16px;
+        margin: 4px 0 8px;
+      }
+      .ccard em {
+        font-style: normal;
+        font-size: 11px;
+        color: var(--g);
+      }
+      .ccard.short img {
+        width: 100px;
+        margin-bottom: 20px;
+      }
+      .sm {
+        font-size: 13px;
+        margin: 8px 0;
+      }
+      .tot {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .big {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      #checkout {
+        margin-top: 26px;
+      }
+      /* order */
+      .bar {
+        background: #f7f7f0;
+        padding: 18px 20px;
+      }
+      .yo {
+        text-align: center;
+        font-weight: 400;
+        font-size: 26px;
+        margin: 20px 0 10px;
+      }
+      .tick {
+        display: block;
+        width: 110px;
+        margin: 0 auto;
+      }
+      .placed {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 800;
+        margin: 10px 0 50px;
+      }
+      .screen#order small,
+      .screen#order .date,
+      .screen#order .addr,
+      .screen#order .sum,
+      .screen#order .btn,
+      .screen#order .link {
+        margin-left: 18px;
+        margin-right: 18px;
+      }
+      .screen#order .btn {
+        width: calc(100% - 36px);
+      }
+      .date {
+        font-size: 18px;
+        color: var(--g);
+        margin-top: 4px;
+      }
+      .addr {
+        font-size: 13px;
+        margin-top: 20px;
+        line-height: 1.6;
+      }
+      .sum {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 2px #ddd;
+      }
+      .sum p {
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+      .s {
+        font-size: 11px;
+        margin: 8px 0;
+      }
+      .sum img {
+        width: 80px;
+        display: block;
+        margin: 6px 0 14px;
+      }
+      .paid {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .screen#order .link {
+        margin-top: 12px;
+      }
+      /* nav */
+      .nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        justify-content: space-around;
+        background: #fff;
+        border-top: 1px solid var(--line);
+        padding: 8px 0;
+      }
+      .nav.inner {
+        position: static;
+        border-top: 1px solid var(--line);
+        margin-top: 10px;
+      }
+      .nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 11px;
+        color: #666;
+        gap: 2px;
+        cursor: pointer;
+        padding: 4px 12px;
+      }
+      .nav a i {
+        font-style: normal;
+        font-size: 18px;
+        padding: 2px 14px;
+        border-radius: 14px;
+        position: relative;
+      }
+      .nav a.on {
+        color: var(--g);
+      }
+      .nav a.on i {
+        background: var(--chip);
+      }
+      .badge {
+        position: absolute;
+        top: -4px;
+        right: 2px;
+        background: var(--g);
+        color: #fff;
+        font-size: 9px;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        display: grid;
+        place-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="phone">
+      <!-- 1. HOME / EXPLORE -->
+      <section class="screen active" id="home">
+        <div class="pad">
+          <div class="row between">
+            <h1 class="logo">Amazon</h1>
+            <span class="icon">🔔</span>
+          </div>
+          <!-- FEEDBACK 6: Search box is now typeable; press Enter to open the product list -->
+          <div class="search">
+            <span>🔍</span><input id="homeSearch" placeholder="Search" />
+          </div>
+          <img class="hero" src="images/rgb-headset.png" alt="RGB headset" />
+          <h2 class="h2">Find&nbsp; Products</h2>
+          <div class="cats">
+            <button class="cat sel" data-go="listing">
+              <span>🎧</span>Audio
+            </button>
+            <button class="cat"><span>💻</span>Tech</button>
+            <button class="cat"><span>💡</span>Home</button>
+            <button class="cat"><span>⌚</span>Lifestyle</button>
+          </div>
+          <div class="row between mt">
+            <h2 class="h2">Find Items</h2>
+            <a class="link">View all</a>
+          </div>
+          <div class="items">
+            <div class="item" data-go="details">
+              <b>Boat 161 Wireless Headphones</b>
+              <small>4.8 (1,248)</small>
+              <img src="images/boat161.png" alt="Boat 161" />
+              <strong>1999.00</strong>
+            </div>
+            <div class="item">
+              <div class="row">
+                <div>
+                  <b>Mini Bluetooth Speaker</b><small>☆ 4.7 (826)</small
+                  ><strong>999.00</strong>
+                </div>
+                <img class="side" src="images/wireless.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="nav">
+          <a data-go="home"><i>⌂</i>Home</a
+          ><a data-go="home" class="on"><i>▦</i>Explore</a>
+          <a data-go="cart"><i>🛍</i>Cart</a
+          ><!-- FEEDBACK 5: Label changed from "Orders" to "You" to match all other screens -->
+          <a><i>👤</i>You</a>
+        </nav>
+      </section>
+
+      <!-- 2. PRODUCT LISTING -->
+      <section class="screen" id="listing">
+        <div class="pad">
+          <div class="top"><span class="back" data-go="home">←</span>Audio</div>
+          <div class="search">
+            <span>🔍</span><input value="Wireless headphones" readonly />
+          </div>
+          <div class="lcard">
+            <img src="images/green-headphones.png" alt="" />
+            <div>
+              <b>Wireless Headphones</b><small>4.8 (1,248)</small
+              ><strong>Price: 1499</strong>
+            </div>
+          </div>
+          <div class="lcard col" data-go="details">
+            <b>Boat 161 Wireless Headphones</b
+            ><img
+              src="images/boat161.png"
+              alt=""
+            /><!-- FEEDBACK 3: Rating made consistent with Home and Details pages -->
+            <small>4.8 (1,248)</small>
+            <div class="row between">
+              <strong>Price: 1999</strong
+              ><!-- FEEDBACK 7: Checkbox can now be ticked -->
+              <span class="check" id="chk"></span>
+            </div>
+          </div>
+          <div class="lcard">
+            <img src="images/studio.png" alt="" />
+            <div>
+              <b>Studio Pro Headphones</b><small>4.9 (918)</small
+              ><strong>Price: 2500</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. PRODUCT DETAILS -->
+      <section class="screen" id="details">
+        <div class="pad">
+          <div class="top">
+            <span class="back" data-go="listing">←</span>Product details
+          </div>
+          <h1 class="ptitle">Boat 161 Wireless&nbsp; Headphones</h1>
+          <small>4.8 (1,248)</small>
+          <div class="pprice">Price : 1999</div>
+          <img class="pimg" src="images/boat161.png" alt="Boat 161" />
+          <p class="small">Color: Forest green</p>
+          <!-- FEEDBACK 2: Spelling fixed ("Noice" to "Noise", "Musics" to "Music") -->
+          <div class="good">
+            <b>Good For:&nbsp; Noise cancellation, Music.</b>
+          </div>
+          <p class="small">
+            <b>Free delivery · Mon, Oct 19</b><br /><span class="muted"
+              >30-day free returns. A little peace of mind.</span
+            >
+          </p>
+        </div>
+        <div class="bottom">
+          <button class="btn olive" id="addCart">
+            Add to Cart · Price:1999
+          </button>
+          <nav class="nav inner">
+            <a data-go="home"><i>⌂</i>Home</a
+            ><a data-go="home" class="on"><i>▦</i>Explore</a>
+            <a data-go="cart"><i>🛍</i>Cart</a><a><i>👤</i>You</a>
+          </nav>
+        </div>
+      </section>
+
+      <!-- 4. CART -->
+      <section class="screen" id="cart">
+        <div class="pad">
+          <div class="top">
+            <span class="back" data-go="details">←</span>Your cart
+          </div>
+          <div class="ccard">
+            <img src="images/boat161.png" alt="" /><b
+              >Boat 161 Wireless<br />&nbsp;Headphones</b
+            ><small>Forest green</small><strong>Price:1999</strong
+            ><em>In stock</em>
+          </div>
+          <div class="ccard short">
+            <img src="images/speaker.png" alt="" /><b>Mini Bluetooth Speaker</b
+            ><strong>Price: 999</strong><em>In stock</em>
+          </div>
+          <h2 class="h2 light">Order Details</h2>
+          <div class="row between sm">
+            <span>(2 items)</span><span>Price: 2998</span>
+          </div>
+          <div class="row between sm">
+            <span class="muted">Delivery</span><span class="green">FREE</span>
+          </div>
+          <hr />
+          <div class="row between">
+            <span class="tot">Total</span><span class="tot big">2998</span>
+          </div>
+          <button class="btn olive" id="checkout">Proceed to Checkout</button>
+        </div>
+        <nav class="nav">
+          <a data-go="home"><i>⌂</i>Home</a
+          ><a data-go="home"><i>▦</i>Explore</a>
+          <a class="on"
+            ><i>🛍<sup class="badge">2</sup></i
+            >Cart</a
+          ><a><i>👤</i>You</a>
+        </nav>
+      </section>
+
+      <!-- 5. ORDER CONFIRMATION -->
+      <section class="screen" id="order">
+        <div class="pad flat">
+          <h1 class="logo bar">Amazon</h1>
+          <h2 class="yo">Your Orders:</h2>
+          <svg class="tick" viewBox="0 0 100 100">
+            <path
+              d="M8 52 L36 82 L92 12"
+              fill="none"
+              stroke="#64b01e"
+              stroke-width="16"
+              stroke-linecap="butt"
+            />
+          </svg>
+          <h1 class="placed">Order Placed</h1>
+          <small class="green">Estimated delivery</small>
+          <div class="date">Monday, October 19</div>
+          <p class="addr">
+            Address:<br />&emsp;No 21 2nd Street Gandhi nagar , Vellore
+          </p>
+          <div class="sum">
+            <p>Order summary</p>
+            <div class="row between s">
+              <b>Boat 161 Wireless Headphones</b><b>Price:1999</b>
+            </div>
+            <img src="images/boat161.png" alt="" />
+            <div class="row between s">
+              <b>Mini Bluetooth Speaker</b><b>Price:999</b>
+            </div>
+            <img src="images/speaker.png" alt="" />
+            <hr />
+            <div class="row between s">
+              <span>(2 items)</span
+              ><!-- FEEDBACK 4: Total now matches the cart total (2998) -->
+              <span>Price:2998</span>
+            </div>
+            <div class="row between s">
+              <span>Delivery</span><span class="green">FREE</span>
+            </div>
+            <hr />
+            <div class="row between">
+              <span>Total paid</span><b class="paid">Price: 2998</b>
+            </div>
+          </div>
+          <button class="btn dark" data-go="home">Continue Shopping</button>
+          <a class="link center">View order details</a>
+        </div>
+        <nav class="nav">
+          <a data-go="home" class="on"><i>⌂</i>Home</a
+          ><a data-go="home"><i>▦</i>Explore</a>
+          <a data-go="cart"><i>🛍</i>Cart</a><a><i>👤</i>You</a>
+        </nav>
+      </section>
+    </div>
+    <!-- FEEDBACK 8: Toast element -->
+    <div class="toast" id="toast">Added to cart ✓</div>
+    <script>
+      const screens = document.querySelectorAll(".screen");
+
+      function show(id) {
+        screens.forEach((s) => s.classList.toggle("active", s.id === id));
+        window.scrollTo(0, 0);
+      }
+
+      // Any element with data-go="screenId" navigates to that screen
+      document.addEventListener("click", (e) => {
+        const t = e.target.closest("[data-go]");
+        if (t) show(t.dataset.go);
+      });
+
+      // FEEDBACK 8: Show toast, then open the cart
+      document.getElementById("addCart").addEventListener("click", () => {
+        const t = document.getElementById("toast");
+        t.classList.add("show");
+        setTimeout(() => {
+          t.classList.remove("show");
+          show("cart");
+        }, 800);
+      });
+
+      document
+        .getElementById("checkout")
+        .addEventListener("click", () => show("order"));
+
+      // FEEDBACK 6: Press Enter in the home search to open the product list
+      document.getElementById("homeSearch").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") show("listing");
+      });
+
+      // FEEDBACK 7: Toggle the checkbox without opening the product
+      document.getElementById("chk").addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.currentTarget.classList.toggle("on");
+        e.currentTarget.textContent = e.currentTarget.classList.contains("on")
+          ? "✓"
+          : "";
+      });
+    </script>
+  </body>
+</html>
